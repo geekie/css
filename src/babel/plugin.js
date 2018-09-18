@@ -1,0 +1,64 @@
+"use strict";
+
+const t = require("@babel/types");
+const m = require("match-ast");
+const sheet = require("../sheet");
+
+const evaluate = require("./evaluate");
+
+const isStyleSheetCreate = m.isCallExpression({
+  callee: m.isMemberExpression({
+    object: m.isIdentifier("StyleSheet"),
+    property: m.isIdentifier("create")
+  }),
+  arguments: [m.isObjectExpression()]
+});
+
+module.exports = function plugin(babel) {
+  return {
+    visitor: {
+      Program: {
+        enter(_, state) {
+          state.dependencies = [];
+          state.changed = false;
+        },
+        exit(p, state) {
+          state.file.metadata = {
+            gkcss: {
+              dependencies: state.dependencies,
+              changed: state.changed
+            }
+          };
+        }
+      },
+      CallExpression: {
+        exit(path, state) {
+          const node = path.node;
+
+          if (!isStyleSheetCreate(node)) {
+            return;
+          }
+
+          const objPath = path.get("arguments.0");
+          const { value: styles, dependencies } = evaluate(
+            objPath,
+            state.file.opts.filename
+          );
+          const props = [];
+          for (const key of Object.keys(styles)) {
+            props.push(
+              t.objectProperty(
+                t.identifier(key),
+                t.stringLiteral(sheet.process(styles[key]))
+              )
+            );
+          }
+
+          state.changed = true;
+          path.replaceWith(t.objectExpression(props));
+          [].push.apply(state.dependencies, dependencies);
+        }
+      }
+    }
+  };
+};
