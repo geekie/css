@@ -1,6 +1,6 @@
 {
   "name": "@geekie/css",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "description": "A simple CSS-in-JS solution that extracts to CSS files",
   "repository": "geekie/css",
   "license": "MIT",

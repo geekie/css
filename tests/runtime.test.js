@@ -8,7 +8,7 @@ const React = require("react");
 const ReactDOM = require("react-dom");
 const ReactTestUtils = require("react-dom/test-utils");
 
-const { StyleSheet, classnames: cn, reset } = require("../");
+const { StyleSheet, classnames: cn, reset } = require("../runtime");
 
 function childStyle(node, p = null) {
   return window.getComputedStyle(node.childNodes[0], p);
