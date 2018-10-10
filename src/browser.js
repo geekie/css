@@ -15,6 +15,10 @@ function insert(rules) {
     tag = createTag();
   }
 
+  if (!rules || !rules.length) {
+    return;
+  }
+
   const sheet = tag.styleSheet || tag.sheet;
   if (sheet.insertRule) {
     let c = sheet.cssRules.length;

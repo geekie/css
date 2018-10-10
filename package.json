@@ -1,13 +1,15 @@
 {
   "name": "@geekie/css",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.5",
   "description": "A simple CSS-in-JS solution that extracts to CSS files",
   "repository": "geekie/css",
   "license": "MIT",
   "main": "index.js",
   "files": [
     "src",
-    "index.js"
+    "index.js",
+    "webpack.js",
+    "runtime.js"
   ],
   "keywords": [
     "react",

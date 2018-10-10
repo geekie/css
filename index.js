@@ -1,6 +1,4 @@
 "use strict";
 
-module.exports = {
-  StyleSheet() {},
-  classnames: require("./src/classnames")
-};
+module.exports.StyleSheet = {};
+module.exports.classnames = require("./src/classnames");

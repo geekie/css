@@ -20,7 +20,9 @@ module.exports = {
     return rules;
   },
   flush() {
+    const curr = rules;
     rules = [];
+    return curr;
   },
   reset() {
     classnames = new Map();
