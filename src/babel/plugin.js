@@ -42,7 +42,8 @@ module.exports = function plugin(babel) {
           const objPath = path.get("arguments.0");
           const { value: styles, dependencies } = evaluate(
             objPath,
-            state.file.opts.filename
+            state.file.opts.filename,
+            state.opts && state.opts.globals
           );
           const props = [];
           for (const key of Object.keys(styles)) {

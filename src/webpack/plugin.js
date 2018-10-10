@@ -40,8 +40,4 @@ Plugin.prototype.apply = function(compiler) {
   });
 };
 
-Plugin.loader = function(options) {
-  return { loader: require.resolve("./loader"), options };
-};
-
 module.exports = Plugin;

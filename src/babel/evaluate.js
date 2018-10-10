@@ -48,7 +48,7 @@ function collectRequirements(path, requirements) {
   }
 }
 
-module.exports = function evaluate(path, filename) {
+module.exports = function evaluate(path, filename, globals) {
   const result = path.evaluate();
   if (result.confident) {
     return {
@@ -89,12 +89,13 @@ module.exports = function evaluate(path, filename) {
       )
     ).code;
 
-  const module = new FakeModule(filename);
-  module.__compile(code);
+  const mod = new FakeModule(filename);
+  globals && mod.__setGlobals(globals);
+  mod.__compile(code);
 
   return {
-    value: module.exports,
-    dependencies: module.children.map(module => module.filename)
+    value: mod.exports,
+    dependencies: mod.children.map(mod => mod.filename)
   };
 };
 
@@ -104,7 +105,12 @@ function FakeModule(filename, parent) {
   this.paths = Module._nodeModulePaths(path.dirname(filename));
   this.exports = {};
   this.__cache = parent ? parent.__cache : {};
+  this.__globals = parent ? parent.__globals : undefined;
 }
+
+FakeModule.prototype.__setGlobals = function(globals) {
+  this.__globals = globals;
+};
 
 FakeModule.prototype.__load = function() {
   const source = fs.readFileSync(this.filename, "utf-8");
@@ -125,13 +131,23 @@ FakeModule.prototype.__compile = function(source) {
     { filename: this.filename }
   );
   script.runInContext(
-    vm.createContext({
-      module: this,
-      exports: this.exports,
-      require: this.__require.bind(this),
-      __filename: this.filename,
-      __dirname: path.dirname(this.filename)
-    })
+    vm.createContext(
+      Object.assign(
+        {
+          module: this,
+          exports: this.exports,
+          require: this.__require.bind(this),
+          process: {
+            env: {
+              NODE_ENV: process.env.NODE_ENV
+            }
+          },
+          __filename: this.filename,
+          __dirname: path.dirname(this.filename)
+        },
+        this.__globals
+      )
+    )
   );
 };
 
@@ -145,15 +161,15 @@ FakeModule.prototype.__require = function(id) {
     throw Error(`Unable to import "${id}": native modules are not supported`);
   }
 
-  let module = this.__cache[filename];
-  if (!module) {
-    this.__cache[filename] = module = new FakeModule(filename, this);
-    module.__load();
+  let mod = this.__cache[filename];
+  if (!mod) {
+    this.__cache[filename] = mod = new FakeModule(filename, this);
+    mod.__load();
   }
 
-  if (!this.children.includes(module)) {
-    this.children.push(module);
+  if (!this.children.includes(mod)) {
+    this.children.push(mod);
   }
 
-  return module.exports;
+  return mod.exports;
 };
