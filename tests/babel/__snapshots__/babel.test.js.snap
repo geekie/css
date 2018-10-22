@@ -31,6 +31,28 @@ Object {
 }
 `;
 
+exports[`function.js: prettyCompiled 1`] = `
+"function getGreen() {
+  return \\"green\\";
+}
+
+const styles = StyleSheet.create({
+  bgGreen: {
+    backgroundColor: getGreen()
+  }
+});
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+function getGreen() {
+  return \\"green\\";
+}
+
+const styles = {
+  bgGreen: \\"gkp15_backgroundColor_green\\"
+};"
+`;
+
 exports[`import.js: compiled 1`] = `
 "import * as Colors from \\"./imports/colors.es\\";
 
@@ -54,9 +76,26 @@ exports[`import.js: metadata 1`] = `
 Object {
   "changed": true,
   "dependencies": Array [
-    "/Users/dual/Code/geekie/css/tests/babel/fixtures/imports/colors.es.js",
+    "./fixtures/imports/colors.es.js",
   ],
 }
+`;
+
+exports[`import.js: prettyCompiled 1`] = `
+"import * as Colors from \\"./imports/colors.es\\";
+
+const styles = StyleSheet.create({
+  bgGreen: {
+    backgroundColor: Colors.GREEN
+  }
+});
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import * as Colors from \\"./imports/colors.es\\";
+const styles = {
+  bgGreen: \\"gkp15_backgroundColor_green\\"
+};"
 `;
 
 exports[`import-multiple-specifiers.js: compiled 1`] = `
@@ -89,9 +128,30 @@ exports[`import-multiple-specifiers.js: metadata 1`] = `
 Object {
   "changed": true,
   "dependencies": Array [
-    "/Users/dual/Code/geekie/css/tests/babel/fixtures/imports/colors.es.js",
+    "./fixtures/imports/colors.es.js",
   ],
 }
+`;
+
+exports[`import-multiple-specifiers.js: prettyCompiled 1`] = `
+"import { GREEN, RED } from \\"./imports/colors.es\\";
+
+const styles = StyleSheet.create({
+  bgGreen: {
+    backgroundColor: GREEN
+  },
+  bgRed: {
+    backgroundColor: RED
+  }
+});
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { GREEN, RED } from \\"./imports/colors.es\\";
+const styles = {
+  bgGreen: \\"gkp15_backgroundColor_green\\",
+  bgRed: \\"gkp15_backgroundColor_red\\"
+};"
 `;
 
 exports[`require.js: compiled 1`] = `
@@ -118,9 +178,27 @@ exports[`require.js: metadata 1`] = `
 Object {
   "changed": true,
   "dependencies": Array [
-    "/Users/dual/Code/geekie/css/tests/babel/fixtures/imports/colors.cjs.js",
+    "./fixtures/imports/colors.cjs.js",
   ],
 }
+`;
+
+exports[`require.js: prettyCompiled 1`] = `
+"const colors = require(\\"./imports/colors.cjs\\");
+
+const styles = StyleSheet.create({
+  bgGreen: {
+    backgroundColor: colors.GREEN
+  }
+});
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const colors = require(\\"./imports/colors.cjs\\");
+
+const styles = {
+  bgGreen: \\"gkp15_backgroundColor_green\\"
+};"
 `;
 
 exports[`simple-var.js: compiled 1`] = `
@@ -149,6 +227,23 @@ Object {
 }
 `;
 
+exports[`simple-var.js: prettyCompiled 1`] = `
+"const green = \\"green\\";
+
+const styles = StyleSheet.create({
+  bgGreen: {
+    backgroundColor: green
+  }
+});
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const green = \\"green\\";
+const styles = {
+  bgGreen: \\"gkp15_backgroundColor_green\\"
+};"
+`;
+
 exports[`static.js: compiled 1`] = `
 "const styles = StyleSheet.create({
   bgGreen: {
@@ -170,4 +265,18 @@ Object {
   "changed": true,
   "dependencies": Array [],
 }
+`;
+
+exports[`static.js: prettyCompiled 1`] = `
+"const styles = StyleSheet.create({
+  bgGreen: {
+    backgroundColor: \\"green\\"
+  }
+});
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const styles = {
+  bgGreen: \\"gkp15_backgroundColor_green\\"
+};"
 `;

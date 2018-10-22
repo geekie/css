@@ -10,6 +10,7 @@ const hash = require("./hash");
 let rules = [];
 let classnames = new Map();
 let ids = new Map();
+let prettyIds = new Map();
 
 module.exports = {
   process,
@@ -27,11 +28,12 @@ module.exports = {
   reset() {
     classnames = new Map();
     ids = new Map();
+    prettyIds = new Map();
     rules = [];
   }
 };
 
-function process(obj, child = "", media = "") {
+function process(obj, child = "", media = "", options) {
   const result = [];
 
   for (const key of Object.keys(obj)) {
@@ -43,7 +45,7 @@ function process(obj, child = "", media = "") {
     if (typeof value === "object") {
       const _media = key.startsWith("@") ? key : null;
       const _child = _media ? child : child + key;
-      result.push(process(value, _child, _media || media));
+      result.push(process(value, _child, _media || media, options));
       continue;
     }
 
@@ -65,7 +67,7 @@ function process(obj, child = "", media = "") {
       continue;
     }
 
-    const classname = getName(key, child, media, value);
+    const classname = getName(key, child, media, value, options);
     classnames.set(cacheKey, classname);
     rules.push(withMedia(rule(classname + child, key, value), media));
 
@@ -75,12 +77,36 @@ function process(obj, child = "", media = "") {
   return result.join(" ");
 }
 
-function getName(prop, child, media, value) {
+function getName(prop, child, media, value, options) {
   const cacheKey = hash(prop + child + media);
   if (!ids.has(cacheKey)) {
-    ids.set(cacheKey, ids.size);
+    let prefix = ids.size;
+    if (options && options.prettyClassNames) {
+      prefix = prettyIdentifier([media, child, prop].filter(x => x).join('_'));
+      prefix = `p${prefix.length}_${prefix}`;
+    }
+
+    ids.set(cacheKey, prefix);
   }
-  return `gk${ids.get(cacheKey)}_${hash(value.toString())}`;
+
+  const suffix = (options && options.prettyClassNames)
+    ? prettyIdentifier(value.toString())
+    : hash(value.toString());
+
+  return `gk${ids.get(cacheKey)}_${suffix}`;
+}
+
+function prettyIdentifier(value) {
+  const cssIdentifier = value.replace(/[^_a-zA-Z0-9-]/g, '_');
+  if (!prettyIds.has(cssIdentifier) || prettyIds.get(cssIdentifier) === value) {
+    prettyIds.set(cssIdentifier, value);
+    return cssIdentifier;
+  } else {
+    // too bad. The sanitized css string constructed from this value collides
+    // with another sanitized css string constructed from another value. Simply
+    // append a hash to ensure uniqueness
+    return cssIdentifier + '_' + hash(value);
+  }
 }
 
 function rule(className, prop, value) {

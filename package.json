@@ -1,6 +1,6 @@
 {
   "name": "@geekie/css",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "description": "A simple CSS-in-JS solution that extracts to CSS files",
   "repository": "geekie/css",
   "license": "MIT",
@@ -9,7 +9,8 @@
     "src",
     "index.js",
     "webpack.js",
-    "runtime.js"
+    "runtime/index.js",
+    "runtime/pretty.js"
   ],
   "keywords": [
     "react",

@@ -50,7 +50,7 @@ module.exports = function plugin(babel) {
             props.push(
               t.objectProperty(
                 t.identifier(key),
-                t.stringLiteral(sheet.process(styles[key]))
+                t.stringLiteral(sheet.process(styles[key], undefined, undefined, state.opts))
               )
             );
           }

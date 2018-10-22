@@ -24,6 +24,16 @@ fs.readdirSync(path.resolve(__dirname, "fixtures")).forEach(filename => {
 
   const realpath = path.resolve(__dirname, path.join("fixtures", filename));
 
+  const normalizePaths = metadata => {
+    if (metadata && metadata.dependencies) {
+      metadata.dependencies = metadata.dependencies.map(
+        dep => `./${path.relative(path.resolve(__dirname), dep)}`
+      );
+    }
+
+    return metadata;
+  }
+
   test(filename, () => {
     const source = fs.readFileSync(realpath);
     const { code, metadata } = babel.transform(source, {
@@ -32,6 +42,13 @@ fs.readdirSync(path.resolve(__dirname, "fixtures")).forEach(filename => {
     });
     expect(source + separator + code).toMatchSnapshot("compiled");
     expect(sheet.toCSS()).toMatchSnapshot("css");
-    expect(metadata.gkcss).toMatchSnapshot("metadata");
+    expect(normalizePaths(metadata.gkcss)).toMatchSnapshot("metadata");
+
+    sheet.reset();
+    const { code: prettyCode } = babel.transform(source, {
+      filename: realpath,
+      plugins: [[ plugin, { prettyClassNames: true } ]],
+    });
+    expect(source + separator + prettyCode).toMatchSnapshot("prettyCompiled");
   });
 });
