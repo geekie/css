@@ -47,7 +47,7 @@ fs.readdirSync(path.resolve(__dirname, "fixtures")).forEach(filename => {
     sheet.reset();
     const { code: prettyCode } = babel.transform(source, {
       filename: realpath,
-      plugins: [[ plugin, { prettyClassNames: true } ]],
+      plugins: [[ plugin, { prettyClassNames: true, addOriginalClassName: true } ]],
     });
     expect(source + separator + prettyCode).toMatchSnapshot("prettyCompiled");
   });

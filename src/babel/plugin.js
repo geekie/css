@@ -47,7 +47,7 @@ module.exports = function plugin(babel) {
           );
           const props = [];
           for (const key of Object.keys(styles)) {
-            const originalClassName = (state.opts && state.opts.addOriginalClassName) ? `._${key} ` : '';
+            const originalClassName = (state.opts && state.opts.addOriginalClassName) ? `_${key} ` : '';
             props.push(
               t.objectProperty(
                 t.identifier(key),

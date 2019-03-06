@@ -9,7 +9,7 @@ const ReactDOM = require("react-dom");
 const ReactTestUtils = require("react-dom/test-utils");
 
 const { StyleSheet, classnames: cn, reset } = require("../runtime");
-const { StyleSheet : PrettyStyleSheet } = require("../runtime/pretty");
+const { StyleSheet: PrettyStyleSheet } = require("../runtime/pretty");
 
 function childStyle(node, p = null) {
   return window.getComputedStyle(node.childNodes[0], p);
@@ -40,7 +40,9 @@ test("works", () => {
     container
   );
 
-  expect(node.getAttribute("class")).toMatchInlineSnapshot(`"gk0_bf54id"`);
+  expect(node.getAttribute("class")).toMatchInlineSnapshot(
+    `"_bgGreen gk0_bf54id"`
+  );
   expect(window.getComputedStyle(node).backgroundColor).toEqual("green");
 });
 
@@ -56,6 +58,8 @@ test("works [pretty]", () => {
     container
   );
 
-  expect(node.getAttribute("class")).toMatchInlineSnapshot(`"gkp15_backgroundColor_green"`);
+  expect(node.getAttribute("class")).toMatchInlineSnapshot(
+    `"_bgGreen gkp15_backgroundColor_green"`
+  );
   expect(window.getComputedStyle(node).backgroundColor).toEqual("green");
 });

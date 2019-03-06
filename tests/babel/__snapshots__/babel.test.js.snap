@@ -49,7 +49,7 @@ function getGreen() {
 }
 
 const styles = {
-  bgGreen: \\"gkp15_backgroundColor_green\\"
+  bgGreen: \\"_bgGreen gkp15_backgroundColor_green\\"
 };"
 `;
 
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
 
 import * as Colors from \\"./imports/colors.es\\";
 const styles = {
-  bgGreen: \\"gkp15_backgroundColor_green\\"
+  bgGreen: \\"_bgGreen gkp15_backgroundColor_green\\"
 };"
 `;
 
@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
 
 import { GREEN, RED } from \\"./imports/colors.es\\";
 const styles = {
-  bgGreen: \\"gkp15_backgroundColor_green\\",
-  bgRed: \\"gkp15_backgroundColor_red\\"
+  bgGreen: \\"_bgGreen gkp15_backgroundColor_green\\",
+  bgRed: \\"_bgRed gkp15_backgroundColor_red\\"
 };"
 `;
 
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
 const colors = require(\\"./imports/colors.cjs\\");
 
 const styles = {
-  bgGreen: \\"gkp15_backgroundColor_green\\"
+  bgGreen: \\"_bgGreen gkp15_backgroundColor_green\\"
 };"
 `;
 
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
 
 const green = \\"green\\";
 const styles = {
-  bgGreen: \\"gkp15_backgroundColor_green\\"
+  bgGreen: \\"_bgGreen gkp15_backgroundColor_green\\"
 };"
 `;
 
@@ -277,6 +277,6 @@ exports[`static.js: prettyCompiled 1`] = `
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const styles = {
-  bgGreen: \\"gkp15_backgroundColor_green\\"
+  bgGreen: \\"_bgGreen gkp15_backgroundColor_green\\"
 };"
 `;
