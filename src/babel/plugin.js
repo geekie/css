@@ -47,10 +47,11 @@ module.exports = function plugin(babel) {
           );
           const props = [];
           for (const key of Object.keys(styles)) {
+            const originalClassName = (state.opts && state.opts.addOriginalClassName) ? `._${key} ` : '';
             props.push(
               t.objectProperty(
                 t.identifier(key),
-                t.stringLiteral(sheet.process(styles[key], undefined, undefined, state.opts))
+                t.stringLiteral(originalClassName + sheet.process(styles[key], undefined, undefined, state.opts))
               )
             );
           }

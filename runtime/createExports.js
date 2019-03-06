@@ -10,7 +10,8 @@ module.exports.createExports = function(options) {
     create(styles) {
       const result = {};
       for (const key of Object.keys(styles)) {
-        result[key] = sheet.process(styles[key], undefined, undefined, options);
+        const originalClassName = ((options && options.addOriginalClassName) !== false) ? `._${key} ` : '';
+        result[key] = originalClassName + sheet.process(styles[key], undefined, undefined, options);
       }
       browser.insert(sheet.flush());
       return result;
