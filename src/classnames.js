@@ -1,50 +1,58 @@
 "use strict";
 
-function flatten(array) {}
+module.exports = function createClassnames(process) {
+  return function classnames() {
+    const processed = new Map();
+    let result = [];
 
-module.exports = function classnames() {
-  const processed = new Map();
-  let result = [];
+    let curr;
+    const args = flatten(Array.from(arguments));
 
-  let curr;
-  const q = Array.from(arguments);
-  while (q.length > 0) {
-    curr = q.pop();
-    if (!curr) {
-      continue;
-    }
+    const styles = [];
 
-    if (Array.isArray(curr)) {
-      Array.prototype.push.apply(q, curr);
-      continue;
-    }
+    while (args.length > 0) {
+      curr = args.pop();
+      if (!curr) {
+        continue;
+      }
 
-    const classnames = curr.split(/\s+/);
-    for (let i = classnames.length - 1; i >= 0; i--) {
-      const classname = classnames[i];
-      const match = classname.match(/^gk\d+_/);
-      let prefix = null;
+      if (typeof curr === "object") {
+        // we're going through the arguments from right-to-left,
+        // so we need to insert objects in the start
+        styles.unshift(curr);
+      } else if (typeof curr === "string") {
+        const classnames = curr.split(/\s+/);
+        for (let i = classnames.length - 1; i >= 0; i--) {
+          const classname = classnames[i];
+          const match = classname.match(/^gk[^-]+/);
 
-      if (!match) {
-        const prettyMatch = classname.match(/^gkp(\d+)_/);
-        if (prettyMatch) {
-          prefix = classname.substring(
-            0,
-            prettyMatch[0].length + parseInt(prettyMatch[1]),
-          );
+          if (!match) {
+            result.push(classname);
+          } else if (!processed.has(match[0])) {
+            processed.set(match[0], true);
+            result.push(classname);
+          }
         }
-      } else {
-        prefix = match[0];
       }
+    }
 
-      if (!prefix) {
-        result.push(classname);
-      } else if (!processed.has(prefix)) {
-        processed.set(prefix, true);
-        result.push(classname);
-      }
+    if (styles.length) {
+      const classname = process(styles);
+      result.push(classname);
+    }
+
+    return result.sort().join(" ");
+  };
+};
+
+function flatten(arr, result = []) {
+  for (let i = 0; i < arr.length; i++) {
+    if (Array.isArray(arr[i])) {
+      flatten(arr[i], result);
+    } else {
+      result.push(arr[i]);
     }
   }
 
-  return result.sort().join(" ");
-};
+  return result;
+}

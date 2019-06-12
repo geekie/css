@@ -3,6 +3,8 @@
  * https://gist.github.com/raycmorgan/588423
  */
 
+"use strict";
+
 module.exports = function hash(str) {
   return doHash(str).toString(36);
 };
@@ -73,10 +75,4 @@ function Umul32(n, m) {
   var nhi = n >>> 16;
   var res = (nlo * m + (((nhi * m) & 0xffff) << 16)) | 0;
   return res;
-}
-
-function getBucket(str, buckets) {
-  var hash = doHash(str, str.length);
-  var bucket = hash % buckets;
-  return bucket;
 }

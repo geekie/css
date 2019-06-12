@@ -3,52 +3,33 @@
 const babel = require("@babel/core");
 const fs = require("fs");
 const path = require("path");
-const sheet = require("../../src/sheet");
-const plugin = require("../../src/babel/plugin");
+const atomic = require("../../atomic");
+const plugin = require("../../babel");
 
 function compile(input) {
   const { code, metadata } = babel.transform(input, { plugins: [plugin] });
   return { code, metadata };
 }
 
-beforeEach(() => {
-  sheet.reset();
-});
+beforeEach(atomic.reset);
 
 const separator = "\n      ↓ ↓ ↓ ↓ ↓ ↓\n\n";
 
-fs.readdirSync(path.resolve(__dirname, "fixtures")).forEach(filename => {
-  if (!filename.match(/\.js$/)) {
-    return;
-  }
+const files = fs
+  .readdirSync(path.resolve(__dirname, "fixtures"))
+  .filter(f => /\.js$/.test(f));
 
+describe.each(files)("%s", filename => {
   const realpath = path.resolve(__dirname, path.join("fixtures", filename));
 
-  const normalizePaths = metadata => {
-    if (metadata && metadata.dependencies) {
-      metadata.dependencies = metadata.dependencies.map(
-        dep => `./${path.relative(path.resolve(__dirname), dep)}`
-      );
-    }
-
-    return metadata;
-  }
-
-  test(filename, () => {
+  test.each(["prod", "dev"])("(%s)", env => {
     const source = fs.readFileSync(realpath);
-    const { code, metadata } = babel.transform(source, {
+    const { code: output, metadata } = babel.transform(source, {
       filename: realpath,
-      plugins: [plugin]
+      plugins: [[plugin, { prettify: env === "dev" }]]
     });
-    expect(source + separator + code).toMatchSnapshot("compiled");
-    expect(sheet.toCSS()).toMatchSnapshot("css");
-    expect(normalizePaths(metadata.gkcss)).toMatchSnapshot("metadata");
-
-    sheet.reset();
-    const { code: prettyCode } = babel.transform(source, {
-      filename: realpath,
-      plugins: [[ plugin, { prettyClassNames: true } ]],
-    });
-    expect(source + separator + prettyCode).toMatchSnapshot("prettyCompiled");
+    expect(source + separator + output).toMatchSnapshot("compiled");
+    expect(metadata.gkcss.css).toMatchSnapshot("css");
+    expect(metadata.gkcss.dependencies).toMatchSnapshot("dependencies");
   });
 });

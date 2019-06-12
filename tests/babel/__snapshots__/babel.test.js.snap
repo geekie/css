@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function.js: compiled 1`] = `
-"function getGreen() {
-  return \\"green\\";
+exports[`function.js (dev): compiled 1`] = `
+function getGreen() {
+  return "green";
 }
 
 const styles = StyleSheet.create({
@@ -14,26 +14,21 @@ const styles = StyleSheet.create({
       ↓ ↓ ↓ ↓ ↓ ↓
 
 function getGreen() {
-  return \\"green\\";
+  return "green";
 }
 
 const styles = {
-  bgGreen: \\"gk0_bf54id\\"
-};"
+  bgGreen: "gkcss0-backgroundColor-green"
+};
 `;
 
-exports[`function.js: css 1`] = `".gk0_bf54id{background-color:green}"`;
+exports[`function.js (dev): css 1`] = `.gkcss0-backgroundColor-green{background-color:green}`;
 
-exports[`function.js: metadata 1`] = `
-Object {
-  "changed": true,
-  "dependencies": Array [],
-}
-`;
+exports[`function.js (dev): dependencies 1`] = `Array []`;
 
-exports[`function.js: prettyCompiled 1`] = `
-"function getGreen() {
-  return \\"green\\";
+exports[`function.js (prod): compiled 1`] = `
+function getGreen() {
+  return "green";
 }
 
 const styles = StyleSheet.create({
@@ -45,16 +40,20 @@ const styles = StyleSheet.create({
       ↓ ↓ ↓ ↓ ↓ ↓
 
 function getGreen() {
-  return \\"green\\";
+  return "green";
 }
 
 const styles = {
-  bgGreen: \\"gkp15_backgroundColor_green\\"
-};"
+  bgGreen: "gkcss0-bf54id"
+};
 `;
 
-exports[`import.js: compiled 1`] = `
-"import * as Colors from \\"./imports/colors.es\\";
+exports[`function.js (prod): css 1`] = `.gkcss0-bf54id{background-color:green}`;
+
+exports[`function.js (prod): dependencies 1`] = `Array []`;
+
+exports[`import.js (dev): compiled 1`] = `
+import * as Colors from "./imports/colors.es";
 
 const styles = StyleSheet.create({
   bgGreen: {
@@ -64,25 +63,22 @@ const styles = StyleSheet.create({
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import * as Colors from \\"./imports/colors.es\\";
+import * as Colors from "./imports/colors.es";
 const styles = {
-  bgGreen: \\"gk0_bf54id\\"
-};"
+  bgGreen: "gkcss0-backgroundColor-green"
+};
 `;
 
-exports[`import.js: css 1`] = `".gk0_bf54id{background-color:green}"`;
+exports[`import.js (dev): css 1`] = `.gkcss0-backgroundColor-green{background-color:green}`;
 
-exports[`import.js: metadata 1`] = `
-Object {
-  "changed": true,
-  "dependencies": Array [
-    "./fixtures/imports/colors.es.js",
-  ],
-}
+exports[`import.js (dev): dependencies 1`] = `
+Array [
+  /Users/dual/Code/geekie/css/tests/babel/fixtures/imports/colors.es.js,
+]
 `;
 
-exports[`import.js: prettyCompiled 1`] = `
-"import * as Colors from \\"./imports/colors.es\\";
+exports[`import.js (prod): compiled 1`] = `
+import * as Colors from "./imports/colors.es";
 
 const styles = StyleSheet.create({
   bgGreen: {
@@ -92,14 +88,22 @@ const styles = StyleSheet.create({
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import * as Colors from \\"./imports/colors.es\\";
+import * as Colors from "./imports/colors.es";
 const styles = {
-  bgGreen: \\"gkp15_backgroundColor_green\\"
-};"
+  bgGreen: "gkcss0-bf54id"
+};
 `;
 
-exports[`import-multiple-specifiers.js: compiled 1`] = `
-"import { GREEN, RED } from \\"./imports/colors.es\\";
+exports[`import.js (prod): css 1`] = `.gkcss0-bf54id{background-color:green}`;
+
+exports[`import.js (prod): dependencies 1`] = `
+Array [
+  /Users/dual/Code/geekie/css/tests/babel/fixtures/imports/colors.es.js,
+]
+`;
+
+exports[`import-multiple-specifiers.js (dev): compiled 1`] = `
+import { GREEN, RED } from "./imports/colors.es";
 
 const styles = StyleSheet.create({
   bgGreen: {
@@ -112,29 +116,26 @@ const styles = StyleSheet.create({
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { GREEN, RED } from \\"./imports/colors.es\\";
+import { GREEN, RED } from "./imports/colors.es";
 const styles = {
-  bgGreen: \\"gk0_bf54id\\",
-  bgRed: \\"gk0_5scuol\\"
-};"
+  bgGreen: "gkcss0-backgroundColor-green",
+  bgRed: "gkcss0-backgroundColor-red"
+};
 `;
 
-exports[`import-multiple-specifiers.js: css 1`] = `
-".gk0_5scuol{background-color:red}
-.gk0_bf54id{background-color:green}"
+exports[`import-multiple-specifiers.js (dev): css 1`] = `
+.gkcss0-backgroundColor-green{background-color:green}
+.gkcss0-backgroundColor-red{background-color:red}
 `;
 
-exports[`import-multiple-specifiers.js: metadata 1`] = `
-Object {
-  "changed": true,
-  "dependencies": Array [
-    "./fixtures/imports/colors.es.js",
-  ],
-}
+exports[`import-multiple-specifiers.js (dev): dependencies 1`] = `
+Array [
+  /Users/dual/Code/geekie/css/tests/babel/fixtures/imports/colors.es.js,
+]
 `;
 
-exports[`import-multiple-specifiers.js: prettyCompiled 1`] = `
-"import { GREEN, RED } from \\"./imports/colors.es\\";
+exports[`import-multiple-specifiers.js (prod): compiled 1`] = `
+import { GREEN, RED } from "./imports/colors.es";
 
 const styles = StyleSheet.create({
   bgGreen: {
@@ -147,15 +148,26 @@ const styles = StyleSheet.create({
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import { GREEN, RED } from \\"./imports/colors.es\\";
+import { GREEN, RED } from "./imports/colors.es";
 const styles = {
-  bgGreen: \\"gkp15_backgroundColor_green\\",
-  bgRed: \\"gkp15_backgroundColor_red\\"
-};"
+  bgGreen: "gkcss0-bf54id",
+  bgRed: "gkcss0-5scuol"
+};
 `;
 
-exports[`require.js: compiled 1`] = `
-"const colors = require(\\"./imports/colors.cjs\\");
+exports[`import-multiple-specifiers.js (prod): css 1`] = `
+.gkcss0-bf54id{background-color:green}
+.gkcss0-5scuol{background-color:red}
+`;
+
+exports[`import-multiple-specifiers.js (prod): dependencies 1`] = `
+Array [
+  /Users/dual/Code/geekie/css/tests/babel/fixtures/imports/colors.es.js,
+]
+`;
+
+exports[`require.js (dev): compiled 1`] = `
+const colors = require("./imports/colors.cjs");
 
 const styles = StyleSheet.create({
   bgGreen: {
@@ -165,26 +177,23 @@ const styles = StyleSheet.create({
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const colors = require(\\"./imports/colors.cjs\\");
+const colors = require("./imports/colors.cjs");
 
 const styles = {
-  bgGreen: \\"gk0_bf54id\\"
-};"
+  bgGreen: "gkcss0-backgroundColor-green"
+};
 `;
 
-exports[`require.js: css 1`] = `".gk0_bf54id{background-color:green}"`;
+exports[`require.js (dev): css 1`] = `.gkcss0-backgroundColor-green{background-color:green}`;
 
-exports[`require.js: metadata 1`] = `
-Object {
-  "changed": true,
-  "dependencies": Array [
-    "./fixtures/imports/colors.cjs.js",
-  ],
-}
+exports[`require.js (dev): dependencies 1`] = `
+Array [
+  /Users/dual/Code/geekie/css/tests/babel/fixtures/imports/colors.cjs.js,
+]
 `;
 
-exports[`require.js: prettyCompiled 1`] = `
-"const colors = require(\\"./imports/colors.cjs\\");
+exports[`require.js (prod): compiled 1`] = `
+const colors = require("./imports/colors.cjs");
 
 const styles = StyleSheet.create({
   bgGreen: {
@@ -194,15 +203,23 @@ const styles = StyleSheet.create({
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const colors = require(\\"./imports/colors.cjs\\");
+const colors = require("./imports/colors.cjs");
 
 const styles = {
-  bgGreen: \\"gkp15_backgroundColor_green\\"
-};"
+  bgGreen: "gkcss0-bf54id"
+};
 `;
 
-exports[`simple-var.js: compiled 1`] = `
-"const green = \\"green\\";
+exports[`require.js (prod): css 1`] = `.gkcss0-bf54id{background-color:green}`;
+
+exports[`require.js (prod): dependencies 1`] = `
+Array [
+  /Users/dual/Code/geekie/css/tests/babel/fixtures/imports/colors.cjs.js,
+]
+`;
+
+exports[`simple-var.js (dev): compiled 1`] = `
+const green = "green";
 
 const styles = StyleSheet.create({
   bgGreen: {
@@ -212,23 +229,18 @@ const styles = StyleSheet.create({
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const green = \\"green\\";
+const green = "green";
 const styles = {
-  bgGreen: \\"gk0_bf54id\\"
-};"
+  bgGreen: "gkcss0-backgroundColor-green"
+};
 `;
 
-exports[`simple-var.js: css 1`] = `".gk0_bf54id{background-color:green}"`;
+exports[`simple-var.js (dev): css 1`] = `.gkcss0-backgroundColor-green{background-color:green}`;
 
-exports[`simple-var.js: metadata 1`] = `
-Object {
-  "changed": true,
-  "dependencies": Array [],
-}
-`;
+exports[`simple-var.js (dev): dependencies 1`] = `Array []`;
 
-exports[`simple-var.js: prettyCompiled 1`] = `
-"const green = \\"green\\";
+exports[`simple-var.js (prod): compiled 1`] = `
+const green = "green";
 
 const styles = StyleSheet.create({
   bgGreen: {
@@ -238,45 +250,48 @@ const styles = StyleSheet.create({
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const green = \\"green\\";
+const green = "green";
 const styles = {
-  bgGreen: \\"gkp15_backgroundColor_green\\"
-};"
+  bgGreen: "gkcss0-bf54id"
+};
 `;
 
-exports[`static.js: compiled 1`] = `
-"const styles = StyleSheet.create({
+exports[`simple-var.js (prod): css 1`] = `.gkcss0-bf54id{background-color:green}`;
+
+exports[`simple-var.js (prod): dependencies 1`] = `Array []`;
+
+exports[`static.js (dev): compiled 1`] = `
+const styles = StyleSheet.create({
   bgGreen: {
-    backgroundColor: \\"green\\"
+    backgroundColor: "green"
   }
 });
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const styles = {
-  bgGreen: \\"gk0_bf54id\\"
-};"
+  bgGreen: "gkcss0-backgroundColor-green"
+};
 `;
 
-exports[`static.js: css 1`] = `".gk0_bf54id{background-color:green}"`;
+exports[`static.js (dev): css 1`] = `.gkcss0-backgroundColor-green{background-color:green}`;
 
-exports[`static.js: metadata 1`] = `
-Object {
-  "changed": true,
-  "dependencies": Array [],
-}
-`;
+exports[`static.js (dev): dependencies 1`] = `Array []`;
 
-exports[`static.js: prettyCompiled 1`] = `
-"const styles = StyleSheet.create({
+exports[`static.js (prod): compiled 1`] = `
+const styles = StyleSheet.create({
   bgGreen: {
-    backgroundColor: \\"green\\"
+    backgroundColor: "green"
   }
 });
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const styles = {
-  bgGreen: \\"gkp15_backgroundColor_green\\"
-};"
+  bgGreen: "gkcss0-bf54id"
+};
 `;
+
+exports[`static.js (prod): css 1`] = `.gkcss0-bf54id{background-color:green}`;
+
+exports[`static.js (prod): dependencies 1`] = `Array []`;
