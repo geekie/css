@@ -90,6 +90,43 @@ And a corresponding CSS rule will be created:
 }
 ```
 
+## Webpack integration
+
+In order to benefit from the build time CSS compilation, you need to use the companion loader and plugin. Example:
+
+```js
+// webpack.config.js
+
+const GkCssPlugin = require("@geekie/css/webpack");
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: [
+          // we recommend adding the loader as the last loader
+          {
+            loader: GkCssPlugin.loader,
+            options: {
+              globals: {
+                // include any globals that may affect the CSS styles
+                // so they can be evaluated statically
+                __DEV__: process.env.NODE_ENV !== "production"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  plugins: [
+    // define the filename of the compiled CSS
+    new GkCssPlugin("style.css")
+  ]
+};
+```
+
 ## TODO
 
 - Manage "conflicts" between general vs specific styles (e.g. `border` vs `border-left`)
