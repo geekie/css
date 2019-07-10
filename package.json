@@ -35,5 +35,8 @@
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "webpack": "^4.34.0"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
